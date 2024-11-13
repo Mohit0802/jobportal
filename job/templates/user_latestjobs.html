@@ -1,0 +1,54 @@
+{% load static %}
+
+{% block body %}
+
+
+{% include "navigation.html" %}
+
+<style>
+    tr{text-align:center}
+</style>
+
+<marquee style="font-family:'Monotype Corsiva'; font-size:25px; color:darkcyan; background-color:black; margin-top:1%">
+    Latest Job List
+</marquee>
+<hr>
+
+<div class="container">
+    <table class="table table-striped" id="example">
+        <thead class="thead-dark">
+            <tr>
+                <th>S.No.</th>
+                <th>Company Name</th>
+                <th>Job Title</th>
+                <th>Location</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in job %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.recruiter.company}}</td>
+                <td>{{i.title}}</td>
+                <td>{{i.location}}</td>
+                <td>{{i.start_date}}</td>
+                <td>{{i.end_date}}</td>
+
+                {% if i.id in li %}
+                <td>Applied</td>
+                {% else %}
+                <td><a href="{% url "job_detail" i.id %}" class="btn btn-success btn-sm">Apply</a>
+                </td>
+                {% endif %}
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock body %}

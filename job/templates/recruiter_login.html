@@ -1,0 +1,49 @@
+{% load static %}
+
+{% block body %}
+
+
+{% include "navigation.html" %}
+
+<marquee style="font-family:'Monotype Corsiva'; font-size:25px; color:darkcyan; background-color:black; margin-top:1%">
+    Recruiter Login
+</marquee>
+<hr>
+{% for msg in messages %}
+    <span class="alert alert-warning alert-dismissible fade show ml-5" role="alert">
+        {{msg}}
+    </span>
+{% endfor %}
+<form class="container mt-5" method="post">
+    {% csrf_token %}
+    <label><b>Email ID</b></label>
+    <input type="text" class="form-control" name="uname" placeholder="Enter Email ID">
+    <label><b>Password</b></label>
+    <input type="Password" class="form-control" name="pwd" placeholder="Enter Password">
+
+    <input type="submit" class="btn btn-primary" style="margin-top:2%; color:darkcyan; background-color:black; height: 40px;">
+    <a href="{% url "recruiter_signup" %}" class="btn btn-primary" style="margin-top:2%; height: 40px;">CREATE AN ACCOUNT</a>
+</form>
+
+{% if error == "no"  %}
+<script>
+    alert("Login Successful");
+    window.location = ('{% url 'recruiter_home' %}')
+</script>
+{% endif %}
+
+{% if error == "yes"  %}
+<script>
+    alert("Invalid Login Credentials, Try Again...");
+</script>
+{% endif %}
+
+
+{% if error == "not"  %}
+<script>
+    alert("Your Login Status is Pending");
+</script>
+{% endif %}
+
+
+{% endblock body %}
